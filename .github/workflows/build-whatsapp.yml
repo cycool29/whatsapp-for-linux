@@ -1,25 +1,18 @@
 name: Build WhatsApp
 
-# Controls when the workflow will run
 on:
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.1
       
-      # Runs a single command using the runners shell
       - name: Install nativefier and Git LFS
         run: |
           npm install -g nativefier && sudo apt install git-lfs
@@ -31,6 +24,6 @@ jobs:
         run: |
           VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g; s/ ·.*//g; s/.0//g') + 1))"
           gh release create ${VERSION}.0 --notes "An unofficial WhatsApp client for Linux, built with nativefier." -t "WhatsApp for Linux ${VERSION}.0"
-          gh release upload ${VERSION} ./*.deb
+          gh release upload ${VERSION}.0 ./*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
