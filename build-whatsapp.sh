@@ -1,5 +1,7 @@
 #!/bin/bash
 
+VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g; s/ ·.*//g; s/.0//g') + 1))"
+
 echo "if ('serviceWorker' in navigator) {
     caches.keys().then(function (cacheNames) {
         cacheNames.forEach(function (cacheName) {
@@ -40,9 +42,10 @@ Architecture: ${ARCH}
 Description: An unofficial WhatsApp client for Linux, built with nativefier.
 Author: cycool29 <cycool29@gmail.com>
 Maintainer: cycool29 <cycool29@gmail.com>
-Version: 1.0" >./DEBIAN/control
+Version: ${VERSION}.0" >./DEBIAN/control
 
      echo "[Desktop Entry]
+Version=${VERSION}.0
 Name=WhatsApp
 Comment=An unofficial WhatsApp client for Linux, built with nativefier.
 Exec=bash /usr/bin/whatsapp
@@ -56,6 +59,6 @@ Keywords=whatsapp;
 
      cd ../
 
-     dpkg-deb -b ${FOLDER}-DEB whatsapp_${ARCH}_1.0.deb
+     dpkg-deb -b ${FOLDER}-DEB whatsapp_${ARCH}_${VERSION}.0.deb
 
 done
