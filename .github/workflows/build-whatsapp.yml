@@ -2,9 +2,7 @@ name: Build WhatsApp
 
 # Controls when the workflow will run
 on:
-  schedule: [{cron: "0 0 * * *"}]
   workflow_dispatch:
-  push: {branches: ["main"]}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,20 +27,10 @@ jobs:
       - name: Build WhatsApp 
         run: bash ./build-whatsapp.sh
           
-      #- name: Recreate repository
-      #  run: gh repo delete --confirm && gh repo create --public whatsapp-for-linux --remote origin  -s .
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name : Upload
-        run : |
-          rm -rf .git
-          git init
-          git lfs install
-          git lfs track "*.deb"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git add .
-          git commit -m "Update WhatsApp"
-          git push --set-upstream origin master -f 
-        
+      - name: Upload to release
+        run: |
+          VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g; s/ ·.*//g; s/.0//g') + 1))"
+          gh release create ${VERSION}.0 --notes "An unofficial WhatsApp client for Linux, built with nativefier." -t "WhatsApp for Linux ${VERSION}.0"
+          gh release upload ${VERSION} ./*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
