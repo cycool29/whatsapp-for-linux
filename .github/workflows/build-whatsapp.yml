@@ -29,10 +29,10 @@ jobs:
       - name: Build WhatsApp 
         run: bash ./build-whatsapp.sh
           
-      - name: Recreate repository
-        run: gh repo delete --confirm && gh repo create --public whatsapp-for-linux --remote origin  -s .
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #- name: Recreate repository
+      #  run: gh repo delete --confirm && gh repo create --public whatsapp-for-linux --remote origin  -s .
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name : Upload
         run : |
