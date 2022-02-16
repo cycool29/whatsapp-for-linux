@@ -36,6 +36,8 @@ for FOLDER in $(ls | grep "^WhatsApp"); do
      echo '#!/bin/bash
 rm -rf ~/.config/whatsapp-nativefier-*/Service Worker && /opt/WhatsApp/WhatsApp' >./usr/bin/whatsapp
 
+    chmod +x ./usr/bin/whatsapp
+
      echo "Package: whatsapp
 Name: WhatsApp
 Architecture: ${ARCH}
