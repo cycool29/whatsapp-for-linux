@@ -47,7 +47,6 @@ Maintainer: cycool29 <cycool29@gmail.com>
 Version: ${VERSION}.0" >./DEBIAN/control
 
      echo "[Desktop Entry]
-Version=${VERSION}.0
 Name=WhatsApp
 Comment=An unofficial WhatsApp client for Linux, built with nativefier.
 Exec=bash /usr/bin/whatsapp
