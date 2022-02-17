@@ -34,7 +34,7 @@ for FOLDER in $(ls | grep "^WhatsApp"); do
      cp -a ../${FOLDER} ./opt/WhatsApp
 
      echo '#!/bin/bash
-rm -rf ~/.config/whatsapp-nativefier-*/Service Worker && /opt/WhatsApp/WhatsApp' >./usr/bin/whatsapp
+rm -rf ~/.config/whatsapp-nativefier-*/Service\ Worker && /opt/WhatsApp/WhatsApp' >./usr/bin/whatsapp
 
     chmod +x ./usr/bin/whatsapp
 
