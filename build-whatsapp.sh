@@ -60,6 +60,6 @@ Keywords=whatsapp;
 
      cd ../
 
-     dpkg-deb -b ${FOLDER}-DEB whatsapp_${ARCH}_${VERSION}.0.deb
+     dpkg-deb -b ${FOLDER}-DEB whatsapp_${VERSION}.0_${ARCH}.deb
 
 done
