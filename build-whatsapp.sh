@@ -11,7 +11,7 @@ echo "if ('serviceWorker' in navigator) {
 }" >./clear-sw-cache.js
 
 for ARCH in ia32 armv7l arm64 x64; do
-     nativefier -a ${ARCH} --inject clear-sw-cache.js --tray --maximize --user-agent "Mozilla/5.0 (X11; CrOS ${ARCH} 13597.84.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.78 Safari/537.36" -p linux --name "WhatsApp" https://web.whatsapp.com
+     nativefier -a ${ARCH} --inject clear-sw-cache.js --tray --maximize --user-agent "Mozilla/5.0 (X11; CrOS ${ARCH} 13597.84.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.78 Safari/537.36" -p linux --name "WhatsApp" https://web.whatsapp.com -e "$(wget -qO- https://api.github.com/repos/electron/electron/releases/latest | jq -r '.tag_name' | sed s/v//g)"
 done
 
 for FOLDER in $(ls | grep "^WhatsApp"); do
