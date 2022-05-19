@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -14,9 +14,9 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.1
       
-      - name: Install nativefier and Git LFS
+      - name: Install nativefier and jq
         run: |
-          npm install -g nativefier && sudo apt install git-lfs
+          npm install -g nativefier && sudo apt install jq -y 
 
       - name: Build WhatsApp 
         run: bash ./build-whatsapp.sh
