@@ -7,16 +7,16 @@ Latest version: {{site.latest-version}}
 ## Install
 
 #### For Raspberry Pi User:
-[![badge](https://github.com/Botspot/pi-apps/blob/master/icons/badge.png?raw=true)](https://github.com/Botspot/pi-apps)  
+[![badge](https://github.com/Botspot/pi-apps/raw/master/icons/badge.png)](https://github.com/Botspot/pi-apps)
 
 #### For other Debian-based OS:
-`amd64`: https://github.com/cycool29/whatsapp-for-linux/releases/download/{{site.latest-version}}/whatsapp_{{site.latest-version}}_amd64.deb
+`amd64`: [Download](https://github.com/cycool29/whatsapp-for-linux/releases/download/{{site.latest-version}}/whatsapp_{{site.latest-version}}_amd64.deb)
 
-`i386`: https://github.com/cycool29/whatsapp-for-linux/releases/download/{{site.latest-version}}/whatsapp_{{site.latest-version}}_i386.deb
+`i386`: [Download](https://github.com/cycool29/whatsapp-for-linux/releases/download/{{site.latest-version}}/whatsapp_{{site.latest-version}}_i386.deb)
 
-`arm64`: https://github.com/cycool29/whatsapp-for-linux/releases/download/{{site.latest-version}}/whatsapp_{{site.latest-version}}_arm64.deb
+`arm64`: [Download](https://github.com/cycool29/whatsapp-for-linux/releases/download/{{site.latest-version}}/whatsapp_{{site.latest-version}}_arm64.deb)
 
-`armhf`: https://github.com/cycool29/whatsapp-for-linux/releases/download/{{site.latest-version}}/whatsapp_{{site.latest-version}}_armhf.deb
+`armhf`: [Download](https://github.com/cycool29/whatsapp-for-linux/releases/download/{{site.latest-version}}/whatsapp_{{site.latest-version}}_armhf.deb)
 
 ## Build 
 
