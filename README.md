@@ -4,7 +4,7 @@ An unofficial WhatsApp client for Linux, built with nativefier.
 
 ## Install
 
-#### For Raspberry Pi User:
+#### For Raspberry Pi users:
 [![badge](https://github.com/Botspot/pi-apps/blob/master/icons/badge.png?raw=true)](https://github.com/Botspot/pi-apps)  
 
 #### For other Debian-based OS:
