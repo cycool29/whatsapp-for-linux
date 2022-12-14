@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g; s/ ·.*//g; s/.0//g') + 1))"
+VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g' | head -c 2) + 1))"
 
 echo "if ('serviceWorker' in navigator) {
     caches.keys().then(function (cacheNames) {
