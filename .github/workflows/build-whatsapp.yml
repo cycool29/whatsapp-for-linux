@@ -32,10 +32,9 @@ jobs:
       - name: Update docs config
         run: | 
           VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g' | head -c 2) + 1))"
-          rm -rf  ${VERSION}.0 ./*.deb
           sed -i "s/latest-version:.*/latest-version: ${VERSION}/g" ./docs/_config.yml
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add .
+          git add ./docs/_config.yml
           git diff-index --quiet HEAD || git commit -m "Update docs config"
           git push
