@@ -23,7 +23,7 @@ jobs:
           
       - name: Upload to release
         run: |
-          VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g; s/ ·.*//g; s/.0//g') + 1))"
+          VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g' | head -c 2) + 1))"
           gh release create ${VERSION}.0 --notes "An unofficial WhatsApp client for Linux, built with nativefier." -t "WhatsApp for Linux ${VERSION}.0"
           gh release upload ${VERSION}.0 ./*.deb
         env:
@@ -31,7 +31,7 @@ jobs:
       
       - name: Update docs condig
         run: | 
-          VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g; s/ ·.*//g; s/.0//g') + 1))"
+          VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g' | head -c 2) + 1))"
           sed -i "s/latest-version:.*/latest-version: ${VERSION}/g" ./docs/_config.yml
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
