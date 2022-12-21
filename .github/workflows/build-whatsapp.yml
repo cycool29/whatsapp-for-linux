@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Update docs condig
+      - name: Update docs config
         run: | 
           VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g' | head -c 2) + 1))"
           sed -i "s/latest-version:.*/latest-version: ${VERSION}/g" ./docs/_config.yml
@@ -37,4 +37,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git add .
           git diff-index --quiet HEAD || git commit -m "Update docs config"
+          git config --global http.version HTTP/1.1
           git push
