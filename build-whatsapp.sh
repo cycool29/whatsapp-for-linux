@@ -1,6 +1,8 @@
 #!/bin/bash
 
-VERSION="$(($(echo ${GITHUB_REF#refs/*/} | head -c 2) + 1))"
+VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/latest  | grep -m 1 -o "WhatsApp for Linux.*"  | sed 's/WhatsApp for Linux //g' | head -c 2) + 1))"
+
+echo -e "\nBuilding version: $VERSION\n"
 
 echo "if ('serviceWorker' in navigator) {
     caches.keys().then(function (cacheNames) {
@@ -10,7 +12,7 @@ echo "if ('serviceWorker' in navigator) {
     });
 }" >./clear-sw-cache.js
 
-for ARCH in ia32 armv7l arm64 x64; do
+for ARCH in armv7l arm64 x64; do
      nativefier -a ${ARCH} --inject clear-sw-cache.js --tray --maximize --user-agent "Mozilla/5.0 (X11; CrOS ${ARCH} 13597.84.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.78 Safari/537.36" -p linux --name "WhatsApp" https://web.whatsapp.com -e "$(wget -qO- https://api.github.com/repos/electron/electron/releases/latest | jq -r '.tag_name' | sed s/v//g)"
 done
 
