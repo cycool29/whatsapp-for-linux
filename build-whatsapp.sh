@@ -4,13 +4,15 @@ VERSION="$(($(wget -qO- https://github.com/cycool29/whatsapp-for-linux/releases/
 
 echo -e "\nBuilding version: $VERSION\n"
 
-echo "if ('serviceWorker' in navigator) {
-    caches.keys().then(function (cacheNames) {
-        cacheNames.forEach(function (cacheName) {
-            caches.delete(cacheName);
-        });
-    });
-}" >./clear-sw-cache.js
+# echo "if ('serviceWorker' in navigator) {
+#    caches.keys().then(function (cacheNames) {
+#        cacheNames.forEach(function (cacheName) {
+#            caches.delete(cacheName);
+#        });
+#    });
+# }" >./clear-sw-cache.js
+
+wget -qO- https://aur.archlinux.org/cgit/aur.git/plain/whatsapp-nativefier-inject.js?h=whatsapp-nativefier-arch-electron >./clear-sw-cache.js
 
 for ARCH in armv7l arm64 x64; do
      nativefier -a ${ARCH} --inject clear-sw-cache.js --browserwindow-options '{ "webPreferences": { "spellcheck": true } }' --single-instance --tray --maximize --user-agent "Mozilla/5.0 (X11; Linux ${ARCH}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" -p linux --name "WhatsApp" https://web.whatsapp.com -e "$(wget -qO- https://api.github.com/repos/electron/electron/releases/latest | jq -r '.tag_name' | sed s/v//g)"
@@ -36,9 +38,9 @@ for FOLDER in $(ls | grep "^WhatsApp"); do
      cp -a ../${FOLDER} ./opt/WhatsApp
 
      echo '#!/bin/bash
-rm -rf ~/.config/whatsapp-nativefier-*/Service\ Worker && /opt/WhatsApp/WhatsApp' >./usr/bin/whatsapp
+/opt/WhatsApp/WhatsApp' >./usr/bin/whatsapp
 
-    chmod +x ./usr/bin/whatsapp
+     chmod +x ./usr/bin/whatsapp
 
      echo "Package: whatsapp
 Name: WhatsApp
@@ -51,7 +53,7 @@ Version: ${VERSION}.0" >./DEBIAN/control
      echo "[Desktop Entry]
 Name=WhatsApp
 Comment=An unofficial WhatsApp client for Linux, built with nativefier.
-Exec=bash /usr/bin/whatsapp
+Exec=/opt/WhatsApp/WhatsApp
 Icon=/opt/WhatsApp/resources/app/icon.png
 Type=Application
 StartupNotify=false
