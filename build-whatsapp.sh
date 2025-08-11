@@ -13,9 +13,10 @@ echo -e "\nBuilding version: $VERSION\n"
 # }" >./clear-sw-cache.js
 
 wget -qO- https://aur.archlinux.org/cgit/aur.git/plain/whatsapp-nativefier-inject.js?h=whatsapp-nativefier-arch-electron >./clear-sw-cache.js
+wget -O "${HOME}/whatsapp.png" "https://raw.githubusercontent.com/cycool29/whatsapp-for-linux/4f520138c1986ca9e3d5796b720ad960c7a2aa36/whatsapp.png"
 
 for ARCH in armv7l arm64 x64; do
-     nativefier -a ${ARCH} --inject clear-sw-cache.js --browserwindow-options '{ "webPreferences": { "spellcheck": true } }' --single-instance --tray --maximize --user-agent "Mozilla/5.0 (X11; Linux ${ARCH}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" -p linux --name "WhatsApp" https://web.whatsapp.com -e "$(wget -qO- https://api.github.com/repos/electron/electron/releases/latest | jq -r '.tag_name' | sed s/v//g)"
+     nativefier -a ${ARCH} --inject clear-sw-cache.js --browserwindow-options '{ "webPreferences": { "spellcheck": true } }' --icon ${HOME}/whatsapp.png --single-instance --tray --maximize --user-agent "Mozilla/5.0 (X11; Linux ${ARCH}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" -p linux --name "WhatsApp" https://web.whatsapp.com -e "$(wget -qO- https://api.github.com/repos/electron/electron/releases/latest | jq -r '.tag_name' | sed s/v//g)"
 done
 
 for FOLDER in $(ls | grep "^WhatsApp"); do
@@ -36,6 +37,7 @@ for FOLDER in $(ls | grep "^WhatsApp"); do
      cd "${FOLDER}-DEB"
      mkdir -p DEBIAN usr/share/applications usr/bin opt
      cp -a ../${FOLDER} ./opt/WhatsApp
+     cp ${HOME}/whatsapp.png ./opt/WhatsApp/icon.png
 
      echo '#!/bin/bash
 /opt/WhatsApp/WhatsApp' >./usr/bin/whatsapp
@@ -54,7 +56,7 @@ Version: ${VERSION}.0" >./DEBIAN/control
 Name=WhatsApp
 Comment=An unofficial WhatsApp client for Linux, built with nativefier.
 Exec=/opt/WhatsApp/WhatsApp
-Icon=/opt/WhatsApp/resources/app/icon.png
+Icon=/opt/WhatsApp/icon.png
 Type=Application
 StartupNotify=false
 StartupWMClass=WhatsApp
